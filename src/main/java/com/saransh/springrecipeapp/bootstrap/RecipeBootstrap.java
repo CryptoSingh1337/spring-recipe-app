@@ -4,8 +4,6 @@ import com.saransh.springrecipeapp.domain.*;
 import com.saransh.springrecipeapp.repositories.CategoryRepository;
 import com.saransh.springrecipeapp.repositories.RecipeRepository;
 import com.saransh.springrecipeapp.repositories.UnitOfMeasureRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
