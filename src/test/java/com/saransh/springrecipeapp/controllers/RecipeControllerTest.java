@@ -9,9 +9,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class RecipeControllerTest {
 
@@ -32,9 +33,12 @@ class RecipeControllerTest {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
+        when(recipeService.getRecipeById(anyLong())).thenReturn(recipe);
+
         mockMvc.perform(
                 get("/recipe/show?id=1"))
                 .andExpect(view().name("recipe/show"))
+                .andExpect(model().attributeExists("recipe"))
                 .andExpect(status().isOk());
     }
 }

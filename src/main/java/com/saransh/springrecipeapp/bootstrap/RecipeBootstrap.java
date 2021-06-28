@@ -84,6 +84,9 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws"
         );
         guacamoleRecipe.setNotes(guacamoleNotes);
+        guacamoleRecipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
+        guacamoleRecipe.setServings(4);
+        guacamoleRecipe.setSource("Simply Recipes");
 
         guacamoleRecipe.addIngredient(new Ingredient("Ripe Avocados", new BigDecimal(2), eachUom));
         guacamoleRecipe.addIngredient(new Ingredient("Kosher salt", new BigDecimal(".5"), teaspoonUom));
@@ -102,7 +105,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         // Tacos Recipe
         Recipe tacosRecipe = new Recipe();
         tacosRecipe.setDescription("Spicy Grilled Chicken Taco");
-        tacosRecipe.setCookTime(9);
+        tacosRecipe.setCookTime(15);
         tacosRecipe.setPrepTime(20);
         tacosRecipe.setDifficulty(Difficulty.MODERATE);
         tacosRecipe.setDirections(
@@ -129,10 +132,13 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "Grill the chicken, then let it rest while you warm the tortillas. Now you are ready to assemble the tacos and dig in. The whole meal comes together in about 30 minutes!\n" +
                 "\n" +
                 "\n" +
-                "Read more: http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ"
+                "<a href='http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ'>Read more..</a>"
         );
 
         tacosRecipe.setNotes(tacoNotes);
+        tacosRecipe.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
+        tacosRecipe.setServings(4);
+        tacosRecipe.setSource("Simply Recipes");
 
         tacosRecipe.addIngredient(new Ingredient("Ancho Chili Powder", new BigDecimal(2), tablespoonUom));
         tacosRecipe.addIngredient(new Ingredient("Dried Oregano", new BigDecimal(1), teaspoonUom));

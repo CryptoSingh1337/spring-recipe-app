@@ -116,13 +116,13 @@
                     </div>
                     <div class="row justify-content-evenly">
                         <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
-                            <p><span class="fw-bold">Prep Time:</span><span class="ms-3" th:text="${recipe.prepTime}"></span></p>
+                            <p><span class="fw-bold">Prep Time:</span><span class="ms-3" th:text="${recipe.prepTime + ' Min'}"></span></p>
                         </div>
                         <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
                             <p><span class="fw-bold">Difficulty:</span><span class="ms-3" th:text="${recipe.difficulty}"></span></p>
                         </div>
                         <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
-                            <p><span class="fw-bold">Cook Time:</span><span class="ms-3" th:text="${recipe.cookTime}"></span></p>
+                            <p><span class="fw-bold">Cook Time:</span><span class="ms-3" th:text="${recipe.cookTime + ' Min'}"></span></p>
                         </div>
                         <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
                             <p><span class="fw-bold">Servings:</span><span class="ms-3" th:text="${recipe.servings}"></span></p>
@@ -131,7 +131,7 @@
                             <p><span class="fw-bold">Source:</span><span class="ms-3" th:text="${recipe.source}"></span></p>
                         </div>
                         <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
-                            <p><span class="fw-bold">URL:</span><a class="ms-3" th:href="${recipe.url}"></a></p>
+                            <p><span class="fw-bold">URL:</span><a class="ms-3" th:href="${recipe.url}">Link</a></p>
                         </div>
                     </div>
                 </div>
@@ -143,8 +143,8 @@
                 <div class="card-text">
                     <ul>
                         <li th:each="ingredient : ${recipe.ingredients}"
-                            th:text="${ingredient.description} + ' - ' + ${ingredient.amount} + ' ' +
-                            ${ingredient.uom.description}"></li>
+                            th:text="${ingredient.amount} + ' ' + ${ingredient.uom.description} + ' - ' +
+                            ${ingredient.description}"></li>
                     </ul>
                 </div>
             </div>
