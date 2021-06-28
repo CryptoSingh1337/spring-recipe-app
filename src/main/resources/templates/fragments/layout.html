@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="header">
+        <h1 class="bg-dark text-white text-center p-5">
+            <img th:src="@{/images/recipe.png}" style="width: 64px; height: 64px">
+            <span class="p-3">Spring Recipe App</span>
+        </h1>
+    </div>
+    <div th:fragment="footer" class="mt-auto">
+        <p class="bg-dark text-white text-center py-3 mb-0">Made with ❤ by Saransh Kumar</p>
+    </div>
+</body>
+</html>
