@@ -1,5 +1,9 @@
 package com.saransh.springrecipeapp.services;
 
+import com.saransh.springrecipeapp.commands.NotesCommand;
+import com.saransh.springrecipeapp.commands.RecipeCommand;
+import com.saransh.springrecipeapp.converters.*;
+import com.saransh.springrecipeapp.domain.Notes;
 import com.saransh.springrecipeapp.domain.Recipe;
 import com.saransh.springrecipeapp.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +30,13 @@ class RecipeServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository,
+                new RecipeCommandToRecipe(new CategoryCommandToCategory(),
+                        new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure()),
+                        new NotesCommandToNotes()),
+                new RecipeToRecipeCommand(new CategoryToCategoryCommand(),
+                        new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand()),
+                        new NotesToNotesCommand()));
     }
 
     @Test
@@ -51,5 +61,23 @@ class RecipeServiceImplTest {
         Recipe returnedRecipe = recipeService.getRecipeById(1L);
         assertNotNull(returnedRecipe ,"Null Recipe Returned");
         verify(recipeRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    void savedRecipeCommand() {
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+        recipeCommand.setNotes(new NotesCommand());
+
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        recipe.setNotes(new Notes());
+
+        when(recipeRepository.save(any())).thenReturn(recipe);
+
+        RecipeCommand savedRecipeCommand = recipeService.savedRecipeCommand(recipeCommand);
+        assertNotNull(savedRecipeCommand);
+        assertEquals(1L, savedRecipeCommand.getId());
+        verify(recipeRepository, times(1)).save(any());
     }
 }
