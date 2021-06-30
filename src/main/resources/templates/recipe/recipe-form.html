@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recipe - Spring Recipe App</title>
+    <link th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}" ></script>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/images/recipe.png}" rel="icon">
+</head>
+<body>
+    <header th:insert="fragments/layout.html :: header"></header>
+    <div class="container my-5">
+        <div class="card mb-5">
+            <div class="card-header fw-bolder">
+                Edit Recipe Information
+            </div>
+            <form id="form" class="px-5" th:object="${recipe}" th:action="@{/recipe/}" method="post">
+                <input type="hidden" th:field="*{id}">
+                <div class="my-4" style="width: 40%">
+                    <label for="recipeDescription" class="form-label fw-bold">Recipe Description</label>
+                    <input type="text" class="form-control" id="recipeDescription" th:field="*{description}"/>
+                </div>
+                <div class="my-4 row">
+                    <label for="recipeDescription" class="form-label fw-bold col-4">Categories:</label>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="cat-1">
+                            <label class="form-check-label" for="cat-1">
+                                Cat 1
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="cat-2">
+                            <label class="form-check-label" for="cat-2">
+                                Cat 2
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-4 row">
+                    <div class="col">
+                        <label class="form-label fw-bold" for="prep-time">
+                            Prep Time:
+                        </label>
+                        <input class="form-control" type="text" id="prep-time" th:field="*{prepTime}">
+                    </div>
+                    <div class="col">
+                        <label class="form-label fw-bold" for="cook-time">
+                            Cook Time:
+                        </label>
+                        <input class="form-control" type="text" id="cook-time" th:field="*{cookTime}">
+                    </div>
+                    <div class="col">
+                        <label class="form-label fw-bold" for="cook-time">
+                            Difficulty:
+                        </label>
+                        <select class="form-select" id="difficulty">
+                            <option>Easy</option>
+                            <option>Moderate</option>
+                            <option>Hard</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="my-4 row">
+                    <div class="col">
+                        <label class="form-label fw-bold" for="servings">
+                            Servings:
+                        </label>
+                        <input class="form-control" type="number" id="servings" th:field="*{servings}">
+                    </div>
+                    <div class="col">
+                        <label class="form-label fw-bold" for="source">
+                            Source:
+                        </label>
+                        <input class="form-control" type="text" id="source" th:field="*{source}">
+                    </div>
+                    <div class="col">
+                        <label class="form-label fw-bold" for="url">
+                            URL:
+                        </label>
+                        <input class="form-control" type="text" id="url" th:field="*{url}">
+                    </div>
+                </div>
+                <div class="my-4">
+                    <label class="form-label fw-bold">Ingredients
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                        </a>
+                    </label>
+                    <ul>
+                        <li>1 Cup of Milk</li>
+                        <li>1 Teaspoon of Chocolate</li>
+                        <li>1 Teaspoon of Sugar</li>
+                    </ul>
+                </div>
+                <div class="my-4">
+                    <label class="form-label fw-bold" for="directions">Directions</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" id="directions" style="height: 100px" th:field="*{directions}"></textarea>
+                        <label for="directions">Write the directions here</label>
+                    </div>
+                </div>
+                <div class="my-4">
+                    <label class="form-label fw-bold" for="notes">Notes</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" id="notes" style="height: 100px" th:field="*{notes.recipeNotes}"></textarea>
+                        <label for="notes">Write the notes here</label>
+                    </div>
+                </div>
+                <div class="my-4">
+                    <button type="submit" class="btn btn-secondary">Save</button>
+                    <button type="reset" class="btn btn-secondary ms-3">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer th:insert="fragments/layout.html :: footer"></footer>
+</body>
+</html>

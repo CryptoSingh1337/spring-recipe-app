@@ -1,11 +1,10 @@
 package com.saransh.springrecipeapp.controllers;
 
+import com.saransh.springrecipeapp.commands.RecipeCommand;
 import com.saransh.springrecipeapp.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by CryptoSingh1337 on 6/27/2021
@@ -24,5 +23,17 @@ public class RecipeController {
     public String getRecipeById(Model model, @RequestParam("id") Long id) {
         model.addAttribute("recipe", recipeService.getRecipeById(id));
         return "recipe/show";
+    }
+
+    @GetMapping("/new")
+    public String showAddRecipeForm(Model model) {
+        model.addAttribute("recipe", new RecipeCommand());
+        return "recipe/recipe-form";
+    }
+
+    @PostMapping("")
+    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+        RecipeCommand savedCommand = recipeService.savedRecipeCommand(command);
+        return "redirect:/recipe/show?id=" + savedCommand.getId();
     }
 }

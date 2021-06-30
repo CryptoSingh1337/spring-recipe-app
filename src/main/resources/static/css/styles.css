@@ -13,3 +13,10 @@ body {
 #recipe-heading {
     font-weight: 900;
 }
+
+@media screen and (max-width: 500px) {
+    #form {
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+}
