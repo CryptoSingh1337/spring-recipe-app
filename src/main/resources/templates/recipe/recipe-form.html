@@ -17,7 +17,7 @@
             <div class="card-header fw-bolder">
                 Edit Recipe Information
             </div>
-            <form id="form" class="px-5" th:object="${recipe}" th:action="@{/recipe/}" method="post">
+            <form id="form" class="px-5" th:object="${recipe}" th:action="@{/recipe/save}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <div class="my-4" style="width: 40%">
                     <label for="recipeDescription" class="form-label fw-bold">Recipe Description</label>
@@ -94,9 +94,13 @@
                         </a>
                     </label>
                     <ul>
-                        <li>1 Cup of Milk</li>
-                        <li>1 Teaspoon of Chocolate</li>
-                        <li>1 Teaspoon of Sugar</li>
+                        <li th:remove="all">1 Cup of Milk</li>
+                        <li th:remove="all">1 Teaspoon of Chocolate</li>
+                        <li th:remove="all">1 Teaspoon of Sugar</li>
+                        <li th:each="ingredient : ${recipe.ingredients}"
+                            th:text="${ingredient.amount + ' ' +
+                            ingredient.unitOfMeasure.description + ' - ' +
+                            ingredient.description}"></li>
                     </ul>
                 </div>
                 <div class="my-4">
