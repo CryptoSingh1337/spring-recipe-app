@@ -43,15 +43,24 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     @Transactional
     public Recipe getRecipeById(Long id) {
-        return recipeRepository.findById(id).orElseThrow(() -> new RuntimeException("No such recipe found"));
+        return recipeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No such recipe found"));
     }
 
     @Override
     @Transactional
     public RecipeCommand savedRecipeCommand(RecipeCommand recipeCommand) {
+        if (recipeCommand == null)
+            throw new RuntimeException("Recipe Command is null");
         Recipe detachedRecipe = commandToRecipe.convert(recipeCommand);
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
         log.debug("Saved Recipe ID: " + savedRecipe.getId());
         return recipeToCommand.convert(savedRecipe);
+    }
+
+    @Override
+    @Transactional
+    public RecipeCommand findCommandById(Long id) {
+        return recipeToCommand.convert(getRecipeById(id));
     }
 }

@@ -80,4 +80,17 @@ class RecipeServiceImplTest {
         assertEquals(1L, savedRecipeCommand.getId());
         verify(recipeRepository, times(1)).save(any());
     }
+
+    @Test
+    void testFindCommandById() {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(recipe));
+
+        RecipeCommand savedRecipeCommand = recipeService.findCommandById(1L);
+        assertNotNull(savedRecipeCommand);
+        assertEquals(1L, savedRecipeCommand.getId());
+        verify(recipeRepository, times(1)).findById(anyLong());
+    }
 }
