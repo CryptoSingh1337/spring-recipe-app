@@ -93,4 +93,10 @@ class RecipeServiceImplTest {
         assertEquals(1L, savedRecipeCommand.getId());
         verify(recipeRepository, times(1)).findById(anyLong());
     }
+
+    @Test
+    void testDeleteRecipeById() {
+        recipeService.deleteRecipeById(1L);
+        verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
 }

@@ -21,6 +21,7 @@
                     <th scope="col">Description</th>
                     <th scope="col">View</th>
                     <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +38,7 @@
                     <td th:text="${recipe.description}"></td>
                     <td><a th:href="@{'/recipe/show?id=' + ${recipe.id}}">View</a></td>
                     <td><a th:href="@{'/recipe/update?id=' + ${recipe.id}}">Update</a></td>
+                    <td><a th:href="@{'/recipe/delete?id=' + ${recipe.id}}">Delete</a></td>
                 </tr>
             </tbody>
         </table>
