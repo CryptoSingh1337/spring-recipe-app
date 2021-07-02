@@ -13,10 +13,10 @@ body {
 #recipe-heading {
     font-weight: 900;
 }
-.btn {
+.custom-btn {
     background-color : #2e333b !important;
 }
-.btn:hover {
+.custom-btn:hover {
     background-color: #212529 !important;
 }
 @media screen and (max-width: 500px) {

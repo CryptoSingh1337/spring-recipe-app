@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredients - Spring Recipe App</title>
+    <link th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}" ></script>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/images/recipe.png}" rel="icon">
+</head>
+<body class="d-flex flex-column">
+<div th:insert="fragments/layout.html :: header"></div>
+<div class="container my-5" style="width: 60%">
+    <a class="btn btn-lg mb-5 text-white" href="/recipe/new">Add a new Ingredient</a>
+    <table class="table table-hover" th:if="${not recipe.ingredients.isEmpty()}">
+        <thead>
+        <tr class="table-dark">
+            <th scope="col">ID</th>
+            <th scope="col">Description</th>
+            <th scope="col">View</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:remove="all">
+            <td>10</td>
+            <td>Chicken Tandoori</td>
+        </tr>
+        <tr th:remove="all">
+            <td>11</td>
+            <td>Butter Chicken</td>
+        </tr>
+        <tr th:each="ingredient : ${recipe.ingredients}" th:scope="row">
+            <td th:text="${ingredient.id}"></td>
+            <td th:text="${ingredient.description}"></td>
+            <td><a th:href="@{'/recipe/'+ ${recipe.id} + '/ingredient/show?id=' + ${ingredient.id}}">View</a></td>
+            <td><a th:href="@{'/recipe/'+ ${recipe.id} + '/ingredient/update?id=' + ${ingredient.id}}">Update</a></td>
+            <td><a th:href="@{'/recipe/'+ ${recipe.id} + '/ingredient/delete?id=' + ${ingredient.id}}">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="container" th:unless="${not recipe.ingredients.isEmpty()}">
+        <h2 class="my-3 text-center">No Ingredients Exists!</h2>
+    </div>
+</div>
+<div th:insert="fragments/layout.html :: footer"></div>
+</body>
+</html>
