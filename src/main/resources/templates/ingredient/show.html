@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredient - Spring Recipe App</title>
+    <link th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}" ></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.5.0/font/bootstrap-icons.css}">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/images/recipe.png}" rel="icon">
+</head>
+<body style="min-height: 100%">
+    <header th:insert="fragments/layout.html :: header"></header>
+    <div class="container" style="min-height: 73vh">
+        <h2 id="recipe-heading" class="my-5">Ingredient</h2>
+        <div class="card mb-5">
+            <div class="card-header fw-bolder">
+                Ingredient Details
+            </div>
+            <div class="card-body my-2">
+                <h4 class="card-title fw-bolder">
+                    Description
+                </h4>
+                <div class="card-text">
+                    <p th:text="${ingredient.description}"></p>
+                </div>
+            </div>
+            <div class="row" style="--bs-gutter-x: 0">
+                <div class="card-body col-12 col-lg-3">
+                    <h4 class="card-title fw-bolder">
+                        Amount
+                    </h4>
+                    <div class="card-text">
+                        <p th:text="${ingredient.amount}"></p>
+                    </div>
+                </div>
+                <div class="card-body col-12 col-lg-9">
+                    <h4 class="card-title fw-bolder">
+                        Unit of Measure
+                    </h4>
+                    <div class="card-text">
+                        <p th:text="${ingredient.unitOfMeasure.description}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:insert="fragments/layout.html :: footer"></footer>
+</body>
+</html>
