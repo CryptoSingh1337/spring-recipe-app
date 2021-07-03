@@ -1,6 +1,8 @@
 package com.saransh.springrecipeapp.controllers;
 
 import com.saransh.springrecipeapp.commands.IngredientCommand;
+import com.saransh.springrecipeapp.commands.RecipeCommand;
+import com.saransh.springrecipeapp.commands.UnitOfMeasureCommand;
 import com.saransh.springrecipeapp.services.IngredientService;
 import com.saransh.springrecipeapp.services.RecipeService;
 import com.saransh.springrecipeapp.services.UnitOfMeasureService;
@@ -51,6 +53,22 @@ public class IngredientController {
                                Model model) {
         model.addAttribute("ingredient",
                 ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
+        model.addAttribute("uomList", unitOfMeasureService.listAllUom());
+        return "ingredient/ingredient-form";
+    }
+
+    @GetMapping("/new")
+    public String newRecipeIngredient(@PathVariable Long recipeId,
+                                      Model model) {
+        RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
+        if (recipeCommand == null) {
+            log.error("Recipe not found with Id: " + recipeId);
+            throw new RuntimeException("Recipe not found");
+        }
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(recipeId);
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+        model.addAttribute("ingredient", ingredientCommand);
         model.addAttribute("uomList", unitOfMeasureService.listAllUom());
         return "ingredient/ingredient-form";
     }
