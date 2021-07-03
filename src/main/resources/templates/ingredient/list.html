@@ -12,7 +12,7 @@
 </head>
 <body class="d-flex flex-column">
 <div th:insert="fragments/layout.html :: header"></div>
-<div class="container my-5" style="width: 60%">
+<div class="container my-5" style="min-height: 63vh; width: 60%">
     <a class="btn btn-lg mb-5 text-white" href="/recipe/new">Add a new Ingredient</a>
     <table class="table table-hover" th:if="${not recipe.ingredients.isEmpty()}">
         <thead>
