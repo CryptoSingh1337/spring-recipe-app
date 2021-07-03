@@ -9,4 +9,5 @@ import com.saransh.springrecipeapp.commands.IngredientCommand;
 public interface IngredientService {
 
     IngredientCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId);
+    IngredientCommand saveIngredientCommand(Long recipeId, IngredientCommand command);
 }

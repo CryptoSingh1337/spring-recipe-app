@@ -35,7 +35,9 @@
         </tr>
         <tr th:each="ingredient : ${recipe.ingredients}" th:scope="row">
             <td th:text="${ingredient.id}"></td>
-            <td th:text="${ingredient.description}"></td>
+            <td th:text="${ingredient.amount} + ' ' +
+            ${ingredient.unitOfMeasure.description} +
+            ' - ' + ${ingredient.description}"></td>
             <td><a th:href="@{'/recipe/'+ ${recipe.id} + '/ingredient/show?id=' + ${ingredient.id}}">View</a></td>
             <td><a th:href="@{'/recipe/'+ ${recipe.id} + '/ingredient/update?id=' + ${ingredient.id}}">Update</a></td>
             <td><a th:href="@{'/recipe/'+ ${recipe.id} + '/ingredient/delete?id=' + ${ingredient.id}}">Delete</a></td>
