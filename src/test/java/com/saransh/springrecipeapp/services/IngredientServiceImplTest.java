@@ -7,99 +7,76 @@ import com.saransh.springrecipeapp.converters.UnitOfMeasureCommandToUnitOfMeasur
 import com.saransh.springrecipeapp.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import com.saransh.springrecipeapp.domain.Ingredient;
 import com.saransh.springrecipeapp.domain.Recipe;
-import com.saransh.springrecipeapp.repositories.RecipeRepository;
-import com.saransh.springrecipeapp.repositories.UnitOfMeasureRepository;
+import com.saransh.springrecipeapp.repositories.IngredientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 class IngredientServiceImplTest {
 
     @Mock
-    private RecipeRepository recipeRepository;
-    @Mock
-    private UnitOfMeasureRepository unitOfMeasureRepository;
+    private IngredientRepository ingredientRepository;
     private IngredientServiceImpl ingredientService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        ingredientService = new IngredientServiceImpl(recipeRepository,
+        ingredientService = new IngredientServiceImpl(
+                ingredientRepository,
                 new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand()),
-                new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure()),
-                unitOfMeasureRepository);
+                new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure()));
     }
 
     @Test
     void findByRecipeIdAndIngredientId() {
-        Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId(1L);
 
-        Ingredient ingredient_1 = new Ingredient();
-        ingredient_1.setId(1L);
+        when(ingredientRepository
+                .findByRecipeIdAndIngredientId(anyLong(), anyLong()))
+                .thenReturn(Optional.of(ingredient));
 
-        Ingredient ingredient_2 = new Ingredient();
-        ingredient_2.setId(2L);
+        IngredientCommand ingredientCommand = ingredientService
+                .findByRecipeIdAndIngredientId(1L, 1L);
 
-        Ingredient ingredient_3 = new Ingredient();
-        ingredient_3.setId(3L);
-
-        recipe.addIngredient(ingredient_1);
-        recipe.addIngredient(ingredient_2);
-        recipe.addIngredient(ingredient_3);
-
-        Optional<Recipe> recipeOptional = Optional.of(recipe);
-
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
-
-        IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId(1L, 1L);
-
+        assertNotNull(ingredientCommand);
         assertEquals(1L, ingredientCommand.getId());
-        assertEquals(1L, ingredientCommand.getRecipeId());
-        verify(recipeRepository, times(1)).findById(anyLong());
     }
 
     @Test
     void testSaveIngredientCommand() {
-        IngredientCommand command = new IngredientCommand();
-        command.setId(3L);
-        command.setRecipeId(2L);
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId(1L);
+        ingredient.setAmount(BigDecimal.ONE);
+        ingredient.setDescription("description");
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        ingredient.setRecipe(recipe);
 
-        Optional<Recipe> recipeOptional = Optional.of(new Recipe());
+        when(ingredientRepository.save(any())).thenReturn(ingredient);
 
-        Recipe savedRecipe = new Recipe();
-        savedRecipe.addIngredient(new Ingredient());
-        savedRecipe.getIngredients().iterator().next().setId(3L);
+        IngredientCommand savedCommand = ingredientService
+                .saveIngredientCommand(1L, new IngredientCommand());
 
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
-        when(recipeRepository.save(any())).thenReturn(savedRecipe);
-
-        IngredientCommand savedCommand = ingredientService.saveIngredientCommand(2L, command);
-
-        assertEquals(3L, savedCommand.getId());
-        verify(recipeRepository, times(1)).findById(anyLong());
-        verify(recipeRepository, times(1)).save(any(Recipe.class));
+        assertNotNull(savedCommand);
+        assertEquals(1L, savedCommand.getId());
+        assertEquals(1L, savedCommand.getRecipeId());
     }
 
     @Test
     void testDeleteIngredientById() {
-        Recipe recipe = new Recipe();
-        recipe.setId(1L);
-        Ingredient ingredient = new Ingredient();
-        ingredient.setId(1L);
-        recipe.addIngredient(ingredient);
-
-        when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(recipe));
-
         ingredientService.deleteById(1L, 1L);
-        verify(recipeRepository, times(1)).findById(anyLong());
-        verify(recipeRepository, times(1)).save(any(Recipe.class));
+
+        verify(ingredientRepository, times(1))
+                .deleteByIngredientIdAndRecipeId(anyLong(), anyLong());
     }
 }
