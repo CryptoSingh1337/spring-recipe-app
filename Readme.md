@@ -1,7 +1,12 @@
 
 # Spring Recipe App
 
-[![CircleCI](https://circleci.com/gh/CryptoSingh1337/spring-recipe-app/tree/master.svg?style=shield&circle-token=0dface3283740830dc757fe0049f683fb4b1bb48)](https://circleci.com/gh/CryptoSingh1337/spring-recipe-app)
+[![CircleCI](https://circleci.com/gh/CryptoSingh1337/spring-recipe-app/tree/master.svg?style=shield)](https://circleci.com/gh/CryptoSingh1337/spring-recipe-app)
+[![Issues Closed](https://img.shields.io/github/issues-closed/CryptoSingh1337/spring-recipe-app?color=red)](https://github.com/CryptoSingh1337/spring-recipe-app/issues?q=is%3Aissue+is%3Aclosed)
+[![Issues Open](https://img.shields.io/github/issues/CryptoSingh1337/spring-recipe-app?color=green)](https://github.com/CryptoSingh1337/spring-recipe-app/issues)
+[![PRs Open](https://img.shields.io/github/issues-pr/CryptoSingh1337/spring-recipe-app)](https://github.com/CryptoSingh1337/spring-recipe-app/pulls)
+![Last Commit](https://img.shields.io/github/last-commit/CryptoSingh1337/spring-recipe-app?color=informational)
+![PRs Welcome](https://img.shields.io/badge/prs-welcome-ff69b4)
 
 A Recipe Web Application which can handle CRUD operations on Recipes.
 
