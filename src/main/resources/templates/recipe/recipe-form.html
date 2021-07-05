@@ -58,10 +58,14 @@
                         <label class="form-label fw-bold" for="cook-time">
                             Difficulty:
                         </label>
-                        <select class="form-select" id="difficulty">
-                            <option>Easy</option>
-                            <option>Moderate</option>
-                            <option>Hard</option>
+                        <select class="form-select" id="difficulty" th:field="*{difficulty}">
+                            <option th:remove="all">Easy</option>
+                            <option th:remove="all">Moderate</option>
+                            <option th:remove="all">Hard</option>
+                            <option th:each="difficultyValue : ${T(com.saransh.springrecipeapp.domain.Difficulty).values()}"
+                                    th:value="${difficultyValue.name()}"
+                                    th:text="${difficultyValue.name()}">
+                            </option>
                         </select>
                     </div>
                 </div>
