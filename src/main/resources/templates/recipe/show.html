@@ -117,35 +117,40 @@
             <div class="card-header fw-bolder">
                 Recipe Description
             </div>
-            <div class="card-body my-2">
-                <h4 class="card-title fw-bolder">
-                    Categories
-                </h4>
-                <div class="card-text">
-                    <div class="d-flex flex-wrap">
-                        <span class="badge mx-4 mb-3" th:each="category : ${recipe.categories}"
-                              th:text="${category.description}"></span>
+            <div class="row" style="--bs-gutter-x: 0">
+                <div class="card-body my-2 col-lg-6 col-md-6 col-12">
+                    <h4 class="card-title fw-bolder">
+                        Categories
+                    </h4>
+                    <div class="card-text">
+                        <div class="d-flex flex-wrap">
+                            <span class="badge mx-4 mb-3" th:each="category : ${recipe.categories}"
+                                  th:text="${category.description}"></span>
+                        </div>
+                        <div class="row justify-content-evenly" style="--bs-gutter-x: 0">
+                            <div class="col-md-3 col-lg-3 mb-3" style="width: 15rem">
+                                <p class="m-0"><span class="fw-bold">Prep Time:</span><span class="ms-3" th:text="${recipe.prepTime + ' Min'}"></span></p>
+                            </div>
+                            <div class="col-md-3 col-lg-3 mb-3" style="width: 15rem">
+                                <p class="m-0"><span class="fw-bold">Difficulty:</span><span class="ms-3" th:text="${recipe.difficulty}"></span></p>
+                            </div>
+                            <div class="col-md-3 col-lg-3 mb-3" style="width: 15rem">
+                                <p class="m-0"><span class="fw-bold">Cook Time:</span><span class="ms-3" th:text="${recipe.cookTime + ' Min'}"></span></p>
+                            </div>
+                            <div class="col-md-3 col-lg-3 mb-3" style="width: 15rem">
+                                <p class="m-0"><span class="fw-bold">Servings:</span><span class="ms-3" th:text="${recipe.servings}"></span></p>
+                            </div>
+                            <div class="col-md-3 col-lg-3 mb-3" style="width: 15rem">
+                                <p class="m-0"><span class="fw-bold">Source:</span><span class="ms-3" th:text="${recipe.source}"></span></p>
+                            </div>
+                            <div class="col-md-3 col-lg-3" style="width: 15rem">
+                                <p class="m-0"><span class="fw-bold">URL:</span><a class="ms-3" th:href="${recipe.url}">Link</a></p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row justify-content-evenly">
-                        <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
-                            <p><span class="fw-bold">Prep Time:</span><span class="ms-3" th:text="${recipe.prepTime + ' Min'}"></span></p>
-                        </div>
-                        <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
-                            <p><span class="fw-bold">Difficulty:</span><span class="ms-3" th:text="${recipe.difficulty}"></span></p>
-                        </div>
-                        <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
-                            <p><span class="fw-bold">Cook Time:</span><span class="ms-3" th:text="${recipe.cookTime + ' Min'}"></span></p>
-                        </div>
-                        <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
-                            <p><span class="fw-bold">Servings:</span><span class="ms-3" th:text="${recipe.servings}"></span></p>
-                        </div>
-                        <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
-                            <p><span class="fw-bold">Source:</span><span class="ms-3" th:text="${recipe.source}"></span></p>
-                        </div>
-                        <div class="col-md-3 col-lg-3 my-3" style="width: 15rem">
-                            <p><span class="fw-bold">URL:</span><a class="ms-3" th:href="${recipe.url}">Link</a></p>
-                        </div>
-                    </div>
+                </div>
+                <div class="text-center col-12 col-md-6 col-lg-6 p-3">
+                    <img th:src="@{'/recipe/' + ${recipe.id} + '/image/show'}" width="200px" height="200px">
                 </div>
             </div>
             <div class="card-body my-2">

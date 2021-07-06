@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image - Spring Recipe App</title>
+    <link th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}" ></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.5.0/font/bootstrap-icons.css}">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/images/recipe.png}" rel="icon">
+</head>
+<body style="min-height: 100%">
+    <header th:insert="fragments/layout.html :: header"></header>
+    <div class="container my-5" style="min-height: 65vh">
+        <div class="card">
+            <div class="card-header fw-bolder">
+                Upload Recipe Image
+            </div>
+            <form class="col-12 col-md-6 col-lg-6 m-3" th:action="@{'/recipe/' + ${recipe.id} + '/image'}" method="post" enctype="multipart/form-data">
+                <label for="recipe-image" class="form-label fw-bold">Choose image to upload</label>
+                <input id="recipe-image" class="form-control" type="file" accept="image/jpeg" name="image">
+                <button class="btn btn-secondary custom-btn mt-4" type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+    <footer th:insert="fragments/layout.html :: footer"></footer>
+</body>
+</html>

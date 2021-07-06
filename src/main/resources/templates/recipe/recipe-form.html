@@ -122,7 +122,8 @@
                 </div>
                 <div class="my-4">
                     <button type="submit" class="btn btn-secondary custom-btn">Save</button>
-                    <button type="reset" class="btn btn-secondary ms-3 custom-btn">Reset</button>
+                    <button type="reset" class="btn btn-secondary mx-3 custom-btn">Reset</button>
+                    <a class="btn btn-secondary custom-btn" th:href="@{'/recipe/' + ${recipe.id} + '/image'}">Change Image</a>
                 </div>
             </form>
         </div>
