@@ -1,6 +1,7 @@
 package com.saransh.springrecipeapp.controllers;
 
 import com.saransh.springrecipeapp.commands.RecipeCommand;
+import com.saransh.springrecipeapp.exceptions.NotFoundException;
 import com.saransh.springrecipeapp.services.ImageService;
 import com.saransh.springrecipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +33,9 @@ class ImageControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         controller = new ImageController(recipeService, imageService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @Test
@@ -46,6 +49,15 @@ class ImageControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("/recipe/image-upload-form"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    void getImageFormNotFound() throws Exception {
+        when(recipeService.findCommandById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/image/"))
+                .andExpect(status().is(404))
+                .andExpect(view().name("error/error"));
     }
 
     @Test
@@ -80,5 +92,14 @@ class ImageControllerTest {
                 .andReturn().getResponse();
 
         assertEquals(file.getBytes().length, response.getContentAsByteArray().length);
+    }
+
+    @Test
+    void renderImageFromDatabaseNotFound() throws Exception {
+        when(recipeService.findCommandById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/image/show"))
+                .andExpect(status().is(404))
+                .andExpect(view().name("error/error"));
     }
 }
