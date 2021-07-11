@@ -53,8 +53,20 @@ class RecipeControllerTest {
 
         mockMvc.perform(get("/recipe/show?id=1"))
                 .andExpect(status().isNotFound())
-                .andExpect(view().name("error/error-404"))
-                .andExpect(model().attributeExists("message"));
+                .andExpect(view().name("error/error"))
+                .andExpect(model().attributeExists("exception"))
+                .andExpect(model().attributeExists("error_code"));
+    }
+
+    @Test
+    void getRecipeByIdNumberFormat() throws Exception {
+        when(recipeService.getRecipeById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/show?id=fafda"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("error/error"))
+                .andExpect(model().attributeExists("exception"))
+                .andExpect(model().attributeExists("error_code"));
     }
 
     @Test

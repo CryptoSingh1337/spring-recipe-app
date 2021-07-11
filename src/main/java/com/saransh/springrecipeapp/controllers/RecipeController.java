@@ -59,8 +59,19 @@ public class RecipeController {
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView handleNotFound(Exception e) {
         log.error("Handling not found exception");
-        ModelAndView mav = new ModelAndView("error/error-404");
+        ModelAndView mav = new ModelAndView("error/error");
+        mav.addObject("error_code", "404");
         mav.addObject("exception", e);
+        return mav;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleNumberFormatException() {
+        log.error("Handling Number Format exception");
+        ModelAndView mav = new ModelAndView("error/error");
+        mav.addObject("error_code", "400");
+        mav.addObject("exception", new RuntimeException("Invalid ID. ID must be a Number"));
         return mav;
     }
 }
