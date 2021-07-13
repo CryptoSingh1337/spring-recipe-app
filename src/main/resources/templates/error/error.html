@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>404 - Spring Recipe App</title>
+    <title th:text="${error_code + ' - Spring Recipe App'}"></title>
     <link rel="icon" th:href="@{/images/recipe.png}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
     <link type="text/css" rel="stylesheet" th:href="@{/css/error-page.css}" />
