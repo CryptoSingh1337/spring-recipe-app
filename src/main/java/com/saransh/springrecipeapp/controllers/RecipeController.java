@@ -5,7 +5,10 @@ import com.saransh.springrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * Created by CryptoSingh1337 on 6/27/2021
@@ -34,13 +37,19 @@ public class RecipeController {
     }
 
     @GetMapping("/update")
-    public String updateRecipe( @RequestParam("id") Long id, Model model) {
+    public String updateRecipe(@RequestParam("id") Long id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(id));
         return "recipe/recipe-form";
     }
 
     @PostMapping("/save")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command,
+                               BindingResult result) {
+        if (result.hasErrors()) {
+            result.getAllErrors()
+                    .forEach(objectError -> log.debug(objectError.toString()));
+            return "recipe/recipe-form";
+        }
         RecipeCommand savedCommand = recipeService.savedRecipeCommand(command);
         return "redirect:/recipe/show?id=" + savedCommand.getId();
     }

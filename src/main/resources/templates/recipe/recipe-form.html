@@ -14,119 +14,172 @@
 <body>
     <header th:insert="fragments/layout.html :: header"></header>
     <div class="container my-5">
-        <div class="card mb-5">
-            <div class="card-header fw-bolder">
-                Edit Recipe Information
+        <form id="form" th:object="${recipe}" th:action="@{/recipe/save}" method="post">
+            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                Please correct errors below:
             </div>
-            <form id="form" class="px-5" th:object="${recipe}" th:action="@{/recipe/save}" method="post">
-                <input type="hidden" th:field="*{id}">
-                <div class="my-4" style="width: 40%">
-                    <label for="recipeDescription" class="form-label fw-bold">Recipe Description</label>
-                    <input type="text" class="form-control" id="recipeDescription" th:field="*{description}"/>
+            <div class="card mb-5">
+                <div class="card-header fw-bolder">
+                    Edit Recipe Information
                 </div>
-                <div class="my-4 row">
-                    <label for="recipeDescription" class="form-label fw-bold col-4">Categories:</label>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="cat-1">
-                            <label class="form-check-label" for="cat-1">
-                                Cat 1
-                            </label>
+                <div class="px-5">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="my-4 col-12 col-md-6 col-lg-4">
+                        <label for="recipeDescription" class="form-label fw-bold">Recipe Description</label>
+                        <input type="text" class="form-control"
+                               th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}"
+                               id="recipeDescription" th:field="*{description}"/>
+                        <span class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                            </ul>
+                        </span>
+                    </div>
+                    <div class="my-4 row">
+                        <label for="recipeDescription" class="form-label fw-bold col-6 col-md-6 col-lg-4">Categories:</label>
+                        <div class="col-6 col-md-6 col-lg-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="cat-1">
+                                <label class="form-check-label" for="cat-1">
+                                    Cat 1
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="cat-2">
+                                <label class="form-check-label" for="cat-2">
+                                    Cat 2
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="cat-2">
-                            <label class="form-check-label" for="cat-2">
-                                Cat 2
+                    </div>
+                    <div class="my-4 row">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <label class="form-label fw-bold" for="prep-time">
+                                Prep Time:
                             </label>
+                            <input class="form-control"
+                                   th:classappend="${#fields.hasErrors('prepTime') ? 'is-invalid' : ''}"
+                                   type="text" id="prep-time" th:field="*{prepTime}">
+                            <span class="invalid-feedback" th:if="${#fields.hasErrors('prepTime')}">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('prepTime')}" th:text="${err}"></li>
+                                </ul>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <label class="form-label fw-bold" for="cook-time">
+                                Cook Time:
+                            </label>
+                            <input class="form-control"
+                                   th:classappend="${#fields.hasErrors('cookTime') ? 'is-invalid' : ''}"
+                                   type="text" id="cook-time" th:field="*{cookTime}">
+                            <span class="invalid-feedback" th:if="${#fields.hasErrors('cookTime')}">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('cookTime')}" th:text="${err}"></li>
+                                </ul>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <label class="form-label fw-bold" for="cook-time">
+                                Difficulty:
+                            </label>
+                            <select class="form-select" id="difficulty" th:field="*{difficulty}">
+                                <option th:remove="all">Easy</option>
+                                <option th:remove="all">Moderate</option>
+                                <option th:remove="all">Hard</option>
+                                <option th:each="difficultyValue : ${T(com.saransh.springrecipeapp.domain.Difficulty).values()}"
+                                        th:value="${difficultyValue.name()}"
+                                        th:text="${difficultyValue.name()}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="my-4 row">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <label class="form-label fw-bold" for="servings">
+                                Servings:
+                            </label>
+                            <input class="form-control"
+                                   th:classappend="${#fields.hasErrors('servings') ? 'is-invalid' : ''}"
+                                   type="number" id="servings" th:field="*{servings}">
+                            <span class="invalid-feedback" th:if="${#fields.hasErrors('servings')}">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('servings')}" th:text="${err}"></li>
+                                </ul>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <label class="form-label fw-bold" for="source">
+                                Source:
+                            </label>
+                            <input class="form-control" type="text" id="source" th:field="*{source}">
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <label class="form-label fw-bold" for="url">
+                                URL:
+                            </label>
+                            <input class="form-control"
+                                   th:classappend="${#fields.hasErrors('url') ? 'is-invalid' : ''}"
+                                   type="text" id="url" th:field="*{url}">
+                            <span class="invalid-feedback" th:if="${#fields.hasErrors('url')}">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('url')}" th:text="${err}"></li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <label class="form-label fw-bold">Ingredients
+                            <a class="btn btn-outline-secondary btn-sm ms-2"
+                               th:href="${'/recipe/' + recipe.id + '/ingredient/list'}">
+                                Edit <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </label>
+                        <ul>
+                            <li th:remove="all">1 Cup of Milk</li>
+                            <li th:remove="all">1 Teaspoon of Chocolate</li>
+                            <li th:remove="all">1 Teaspoon of Sugar</li>
+                            <li th:each="ingredient : ${recipe.ingredients}"
+                                th:text="${ingredient.amount + ' ' +
+                                ingredient.unitOfMeasure.description + ' - ' +
+                                ingredient.description}"></li>
+                        </ul>
+                    </div>
+                    <div class="my-4">
+                        <label class="form-label fw-bold" for="directions">Directions</label>
+                        <div class="form-floating">
+                            <textarea class="form-control"
+                                      th:classappend="${#fields.hasErrors('directions') ? 'is-invalid' : ''}"
+                                      id="directions" style="height: 100px" th:field="*{directions}"></textarea>
+                            <label for="directions">Write the directions here</label>
+                            <span class="invalid-feedback" th:if="${#fields.hasErrors('directions')}">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('directions')}" th:text="${err}"></li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <label class="form-label fw-bold" for="notes">Notes</label>
+                        <div class="form-floating">
+                            <textarea class="form-control" id="notes" style="height: 100px" th:field="*{notes.recipeNotes}"></textarea>
+                            <label for="notes">Write the notes here</label>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="my-2 col-12 col-md-3 col-lg-2">
+                            <button type="submit" class="btn btn-secondary custom-btn">Save</button>
+                        </div>
+                        <div class="my-2 col-12 col-md-3 col-lg-2">
+                            <button type="reset" class="btn btn-secondary custom-btn">Reset</button>
+                        </div>
+                        <div class="my-2 col-12 col-md-3 col-lg-2">
+                            <a class="btn btn-secondary custom-btn" th:href="@{'/recipe/' + ${recipe.id} + '/image'}">Change Image</a>
                         </div>
                     </div>
                 </div>
-                <div class="my-4 row">
-                    <div class="col">
-                        <label class="form-label fw-bold" for="prep-time">
-                            Prep Time:
-                        </label>
-                        <input class="form-control" type="text" id="prep-time" th:field="*{prepTime}">
-                    </div>
-                    <div class="col">
-                        <label class="form-label fw-bold" for="cook-time">
-                            Cook Time:
-                        </label>
-                        <input class="form-control" type="text" id="cook-time" th:field="*{cookTime}">
-                    </div>
-                    <div class="col">
-                        <label class="form-label fw-bold" for="cook-time">
-                            Difficulty:
-                        </label>
-                        <select class="form-select" id="difficulty" th:field="*{difficulty}">
-                            <option th:remove="all">Easy</option>
-                            <option th:remove="all">Moderate</option>
-                            <option th:remove="all">Hard</option>
-                            <option th:each="difficultyValue : ${T(com.saransh.springrecipeapp.domain.Difficulty).values()}"
-                                    th:value="${difficultyValue.name()}"
-                                    th:text="${difficultyValue.name()}">
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="my-4 row">
-                    <div class="col">
-                        <label class="form-label fw-bold" for="servings">
-                            Servings:
-                        </label>
-                        <input class="form-control" type="number" id="servings" th:field="*{servings}">
-                    </div>
-                    <div class="col">
-                        <label class="form-label fw-bold" for="source">
-                            Source:
-                        </label>
-                        <input class="form-control" type="text" id="source" th:field="*{source}">
-                    </div>
-                    <div class="col">
-                        <label class="form-label fw-bold" for="url">
-                            URL:
-                        </label>
-                        <input class="form-control" type="text" id="url" th:field="*{url}">
-                    </div>
-                </div>
-                <div class="my-4">
-                    <label class="form-label fw-bold">Ingredients
-                        <a class="btn btn-outline-secondary btn-sm ms-2"
-                           th:href="${'/recipe/' + recipe.id + '/ingredient/list'}">
-                            Edit <i class="bi bi-pencil-square"></i>
-                        </a>
-                    </label>
-                    <ul>
-                        <li th:remove="all">1 Cup of Milk</li>
-                        <li th:remove="all">1 Teaspoon of Chocolate</li>
-                        <li th:remove="all">1 Teaspoon of Sugar</li>
-                        <li th:each="ingredient : ${recipe.ingredients}"
-                            th:text="${ingredient.amount + ' ' +
-                            ingredient.unitOfMeasure.description + ' - ' +
-                            ingredient.description}"></li>
-                    </ul>
-                </div>
-                <div class="my-4">
-                    <label class="form-label fw-bold" for="directions">Directions</label>
-                    <div class="form-floating">
-                        <textarea class="form-control" id="directions" style="height: 100px" th:field="*{directions}"></textarea>
-                        <label for="directions">Write the directions here</label>
-                    </div>
-                </div>
-                <div class="my-4">
-                    <label class="form-label fw-bold" for="notes">Notes</label>
-                    <div class="form-floating">
-                        <textarea class="form-control" id="notes" style="height: 100px" th:field="*{notes.recipeNotes}"></textarea>
-                        <label for="notes">Write the notes here</label>
-                    </div>
-                </div>
-                <div class="my-4">
-                    <button type="submit" class="btn btn-secondary custom-btn">Save</button>
-                    <button type="reset" class="btn btn-secondary mx-3 custom-btn">Reset</button>
-                    <a class="btn btn-secondary custom-btn" th:href="@{'/recipe/' + ${recipe.id} + '/image'}">Change Image</a>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
     <footer th:insert="fragments/layout.html :: footer"></footer>
 </body>
