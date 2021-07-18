@@ -45,13 +45,15 @@ public class ImageController {
     @GetMapping("/show")
     public void renderImageFromDatabase(@PathVariable Long id, HttpServletResponse res) throws IOException {
         RecipeCommand recipeCommand = recipeService.findCommandById(id);
-        byte[] byteArray = new byte[recipeCommand.getImage().length];
-        int i = 0;
-        for (Byte b : recipeCommand.getImage())
-            byteArray[i++] = b;
+        if (recipeCommand.getImage() != null) {
+            byte[] byteArray = new byte[recipeCommand.getImage().length];
+            int i = 0;
+            for (Byte b : recipeCommand.getImage())
+                byteArray[i++] = b;
 
-        res.setContentType("image/jpeg");
-        InputStream is = new ByteArrayInputStream(byteArray);
-        IOUtils.copy(is, res.getOutputStream());
+            res.setContentType("image/jpeg");
+            InputStream is = new ByteArrayInputStream(byteArray);
+            IOUtils.copy(is, res.getOutputStream());
+        }
     }
 }
