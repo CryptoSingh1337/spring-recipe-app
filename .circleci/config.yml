@@ -39,6 +39,13 @@ jobs:
       # Then run your tests!
       - run: mvn integration-test
 
+      - store_test_results:
+          path: target/surefire-reports
+
+      - run:
+          name: Send to codecov
+          command: bash <(curl -s https://codecov.io/bash)
+
 workflows:
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
