@@ -2,6 +2,7 @@
 # Spring Recipe App
 
 [![CircleCI](https://circleci.com/gh/CryptoSingh1337/spring-recipe-app/tree/master.svg?style=shield)](https://circleci.com/gh/CryptoSingh1337/spring-recipe-app)
+[![codecov](https://codecov.io/gh/CryptoSingh1337/spring-recipe-app/branch/master/graph/badge.svg?token=FBRB6F3WM2)](https://codecov.io/gh/CryptoSingh1337/spring-recipe-app)
 [![Issues Closed](https://img.shields.io/github/issues-closed/CryptoSingh1337/spring-recipe-app?color=red)](https://github.com/CryptoSingh1337/spring-recipe-app/issues?q=is%3Aissue+is%3Aclosed)
 [![Issues Open](https://img.shields.io/github/issues/CryptoSingh1337/spring-recipe-app?color=green)](https://github.com/CryptoSingh1337/spring-recipe-app/issues)
 [![PRs Open](https://img.shields.io/github/issues-pr/CryptoSingh1337/spring-recipe-app)](https://github.com/CryptoSingh1337/spring-recipe-app/pulls)
